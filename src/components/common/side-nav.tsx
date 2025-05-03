@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { DotSquareIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, DotSquareIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { Code, LogOut } from "lucide-react";
 import {
@@ -36,15 +36,15 @@ export function SideNav({ menuItems }: { menuItems: SideNavSection[] }) {
 
   return (
     <div
-      className={`shadow-dark fixed bottom-0 top-0 ${
+      className={`border-r-2 border-gray-100 fixed bottom-0 top-0 ${
         pathname.includes("auth") ? "hidden" : "flex"
-      }  flex-col justify-between rounded-r-2xl gap-8 transition-all duration-300 bg-white z-50 ${
+      }  flex-col justify-between gap-8 transition-all duration-300 bg-white z-50 ${
         isExpanded ? "" : ""
       }  ${isExpanded ? "md:w-64" : "md:w-20"}`}
     >
       <div className="flex flex-col">
         <div
-          className={`flex text-gray-500 bg-white items-center justify-between p-6 h-[80px] border-b border-b-gray-700 rounded-tr-2xl`}
+          className={`flex text-gray-500 bg-white items-center justify-between p-6 h-[100px] rounded-tr-2xl`}
         >
           <Link href={"/"}>
             <Image
@@ -69,9 +69,13 @@ export function SideNav({ menuItems }: { menuItems: SideNavSection[] }) {
         >
           <Button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="absolute top-[-16px] right-[-16px] flex w-fit h-fit px-2 rounded-md bg-gray-800 border-2 border-gray-700"
+            className="absolute top-[-66px] right-[-16px] flex p-3 rounded-full w-8 h-8 bg-white border-1 border-gray-200 text-gray-400 hover:bg-white hover:border-1 hover:border-error hover:text-gray-500 cursor-pointer"
           >
-            <Code size={16} />
+            {isExpanded ? (
+              <ChevronLeft size={24} />
+            ) : (
+              <ChevronRight size={24} />
+            )}
           </Button>
           {menuItems.map((section, sectionIdx) => (
             <div

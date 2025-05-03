@@ -2,12 +2,7 @@ import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: "class",
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
   prefix: "",
 
   theme: {
@@ -47,8 +42,11 @@ const config = {
           800: "#142341",
           900: "#10172A",
         },
-        primary: "#2C81BB",
-        secondary: "#F0BB36",
+        red: {
+          500: "#FFD850",
+        },
+        primary: "#2686C6",
+        secondary: "#F2BB34",
         warning: "#FFD850",
         success: "#00BA40",
         error: "#FF2B2B",
