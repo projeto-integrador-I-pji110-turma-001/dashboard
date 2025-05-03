@@ -31,27 +31,27 @@ export const menuItems = [
   {
     title: "Pacientes",
     icon: Users,
-    url: "/pacientes",
+    url: "/dashboard/pacientes",
   },
   {
     title: "Atendimentos",
     icon: CalendarClock,
-    url: "/atendimentos",
+    url: "/dashboard/atendimentos",
   },
   {
     title: "Doações",
     icon: ChartBar,
-    url: "/doacoes",
+    url: "/dashboard/doacoes",
   },
   {
     title: "Empréstimos",
     icon: FileText,
-    url: "/emprestimos",
+    url: "/dashboard/emprestimos",
   },
   {
     title: "Oficinas",
     icon: SquareLibrary,
-    url: "/oficinas",
+    url: "/dashboard/oficinas",
   },
 ];
 
@@ -90,7 +90,7 @@ export function AppSidebar() {
         <SidebarMenu className="flex justify-center gap-4">
           <SidebarMenuItem key={"Sair"}>
             <SidebarMenuButton asChild>
-              <a href={"/auth"} onClick={logout}>
+              <a href={"/dashboard/auth"} onClick={logout}>
                 <LogOut />
                 <span>Sair</span>
               </a>

@@ -13,7 +13,7 @@ export default function App({ children }: { children: React.ReactNode }) {
   const { hasMounted } = useHasMounted();
 
   const title = useCurrentPageTitle();
-  const isAuthPath = usePathname().startsWith("/auth");
+  const isAuthPath = usePathname().includes("/auth");
 
   if (!hasMounted) {
     return <LoadingScreen />;

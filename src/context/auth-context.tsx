@@ -65,7 +65,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     setToken(null);
     localStorage.removeItem("bearerToken");
-    router.push("/auth");
+    router.push("/dashboard/auth");
   };
 
   return (
