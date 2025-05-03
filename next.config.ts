@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
+const isGithubPages = process.env.NODE_ENV === "production";
+const repo = "dashboard";
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  basePath: isGithubPages ? `/${repo}` : "",
+  assetPrefix: isGithubPages ? `/${repo}/` : "",
 };
 
 export default nextConfig;
