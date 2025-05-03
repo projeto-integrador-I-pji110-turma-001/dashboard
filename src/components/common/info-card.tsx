@@ -47,7 +47,7 @@ export function InfoCard({
             </div>
           )}
         </div>
-        {icon && <div className="text-muted-foreground">{icon}</div>}
+        {icon && <div className="text-primary bg-primary/10 p-4 rounded-full">{icon}</div>}
       </CardContent>
     </Card>
   );

@@ -2,11 +2,9 @@ import {
   ChartBar,
   Users,
   FileText,
-  Calendar,
-  Settings,
   Home,
-  Paperclip,
   CalendarClock,
+  SquareLibrary,
 } from "lucide-react";
 import {
   Sidebar,
@@ -48,11 +46,10 @@ export const menuItems = [
     url: "/emprestimos",
   },
   {
-    title: "Calendário",
-    icon: Calendar,
-    url: "/calendario",
+    title: "Oficinas",
+    icon: SquareLibrary,
+    url: "/oficinas",
   },
-  
 ];
 
 export function AppSidebar() {
@@ -66,7 +63,7 @@ export function AppSidebar() {
           height={50}
         />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="pt-6">
         <SidebarGroup className="flex justify-center gap-4">
           <SidebarGroupLabel>MENU</SidebarGroupLabel>
           <SidebarGroupContent>
