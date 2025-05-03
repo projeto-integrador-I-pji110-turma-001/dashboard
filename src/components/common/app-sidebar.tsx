@@ -5,10 +5,12 @@ import {
   Home,
   CalendarClock,
   SquareLibrary,
+  LogOut,
 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -18,6 +20,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Image from "next/image";
+import { useAuthContext } from "@/context/auth-context";
 
 export const menuItems = [
   {
@@ -53,9 +56,10 @@ export const menuItems = [
 ];
 
 export function AppSidebar() {
+  const { logout } = useAuthContext();
   return (
     <Sidebar className="p-4 bg-sidebar">
-      <SidebarHeader className="flex">
+      <SidebarHeader>
         <Image
           src="/assets/logo/logo-hospital.png"
           alt="Logo"
@@ -82,6 +86,18 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="flex justify-center gap-4">
+        <SidebarMenu className="flex justify-center gap-4">
+          <SidebarMenuItem key={"Sair"}>
+            <SidebarMenuButton asChild>
+              <a href={"/auth"} onClick={logout}>
+                <LogOut />
+                <span>Sair</span>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 }

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { AppointmentsChart } from "@/components/charts/appointments-chart";
 import { DonationsChart } from "@/components/charts/donations-chart";
 import { LoansChart } from "@/components/charts/loans-chart";
@@ -46,7 +46,6 @@ export default function Home() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <LoansChart />
-     
       </div>
     </>
   );

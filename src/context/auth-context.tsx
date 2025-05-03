@@ -1,12 +1,15 @@
 import React, { createContext, useState, ReactNode, useContext } from "react";
-// import { signIn } from "../api/auth";
 import { useRouter } from "next/navigation";
-import { useAppContext } from "./app-context";
+import { signIn } from "@/api";
+import { loginSchema } from "@/schemas/schema";
+import { z } from "zod";
+
+export type LoginFormValues = z.infer<typeof loginSchema>;
 
 type AuthContextType = {
   token: string | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<string>;
+  login: (data: LoginFormValues) => Promise<string>;
   logout: () => void;
 };
 
@@ -37,38 +40,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     return null;
   });
 
-  // const { setUser } = useAppContext();
-
   const router = useRouter();
 
   const isAuthenticated = !!token;
 
-  const login = async (email: string, password: string) => {
-    // const response = await signIn(email, password);
+  const login = async (data: LoginFormValues) => {
+    const response = await signIn(data);
 
-    // if (!response) {
-    //   throw new Error("Login failed");
-    // }
+    if (!response) {
+      throw new Error("Login failed");
+    }
 
-    // const token: string = response;
+    const token: string = response;
 
-    // if (typeof window !== "undefined" && token) {
-    //   localStorage.setItem("bearerToken", token);
-    // }
+    if (typeof window !== "undefined" && token) {
+      localStorage.setItem("bearerToken", token);
+    }
 
-    // setToken(token);
+    setToken(token);
 
-    // return token;
-
-    return "token";
+    return token;
   };
 
   const logout = () => {
     setToken(null);
-    // setUser({ username: "", role: "default", id: "" });
     localStorage.removeItem("bearerToken");
-    localStorage.removeItem("user");
-    router.push("/auth/login");
+    router.push("/auth");
   };
 
   return (

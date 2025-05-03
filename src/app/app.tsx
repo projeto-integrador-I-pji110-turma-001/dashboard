@@ -1,12 +1,13 @@
 "use client";
 import { AppSidebar } from "@/components/common/app-sidebar";
 import { Header } from "@/components/common/header";
+import { WithAuthRedirect } from "@/components/hoc/with-auth";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppProvider } from "@/context/app-context";
 import { AuthProvider } from "@/context/auth-context";
 import { useCurrentPageTitle } from "@/hooks/use-current-page-title";
 import { useHasMounted } from "@/hooks/use-has-mounted";
 import { usePathname } from "next/navigation";
+import { Toaster } from "sonner";
 
 export default function App({ children }: { children: React.ReactNode }) {
   const { hasMounted } = useHasMounted();
@@ -28,9 +29,9 @@ export default function App({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthProvider>
-      <AppProvider>
+      <WithAuthRedirect>
         <SidebarProvider>
-          <AppSidebar />
+          {!isAuthPath && <AppSidebar />}
           <>
             {hasMounted ? (
               <>
@@ -47,7 +48,8 @@ export default function App({ children }: { children: React.ReactNode }) {
             )}
           </>
         </SidebarProvider>
-      </AppProvider>
+        <Toaster />
+      </WithAuthRedirect>
     </AuthProvider>
   );
 }
