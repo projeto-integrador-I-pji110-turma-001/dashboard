@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable */
 "use client";
 import {
   Table,
@@ -40,7 +40,9 @@ export function DataTable({ data, headers, caption }: DataTableProps) {
           {headers.map((header, index) => (
             <TableHead
               key={index}
-              className={`font-normal ${index === headers.length - 1 ? "text-right" : ""}`}
+              className={`font-normal ${
+                index === headers.length - 1 ? "text-right" : ""
+              }`}
             >
               {header.label}
             </TableHead>
@@ -54,7 +56,11 @@ export function DataTable({ data, headers, caption }: DataTableProps) {
               <TableCell
                 key={headerIndex}
                 className={`                
-               ${headerIndex === headers.length - 1 ? "flex flex-1 justify-end " : ""}
+               ${
+                 headerIndex === headers.length - 1
+                   ? "flex flex-1 justify-end "
+                   : ""
+               }
                 `}
               >
                 <div className="flex items-center gap-2">
@@ -63,9 +69,7 @@ export function DataTable({ data, headers, caption }: DataTableProps) {
                     row[header.key] !== null ? (
                       <div className="flex items-center gap-1">
                         {row[header.key + "Icon"] && (
-                          <div className="mr-1">
-                            {row[header.key + "Icon"]}
-                          </div>
+                          <div className="mr-1">{row[header.key + "Icon"]}</div>
                         )}
                         <div className="flex flex-col gap-2">
                           <div className="font-medium">
