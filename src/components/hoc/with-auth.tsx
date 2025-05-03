@@ -12,7 +12,7 @@ export function WithAuthRedirect({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isAuthenticated && !pathname.includes("auth")) {
-      router.push("/dashboard/auth");
+      router.push("/auth");
       toast("Sessão expirada.");
     }
   }, [isAuthenticated, router, pathname]);
