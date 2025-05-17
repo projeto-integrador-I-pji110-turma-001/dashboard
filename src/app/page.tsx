@@ -39,7 +39,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 mb-6">
         <DonationsChart />
         <AppointmentsChart />
         <LoansChart />

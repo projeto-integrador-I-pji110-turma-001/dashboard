@@ -33,7 +33,7 @@ const categoryColors: Record<string, string> = {
 
 export function DonationsChart() {
   return (
-    <Card className="col-span-12 md:col-span-5 w-full">
+    <Card className="col-span-12 sm:col-span-12 md:col-span-5 w-full">
       <CardHeader>
         <CardTitle>Doações por Categoria</CardTitle>
       </CardHeader>

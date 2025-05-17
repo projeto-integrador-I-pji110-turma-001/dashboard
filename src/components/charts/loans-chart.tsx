@@ -52,7 +52,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
 
 export function LoansChart() {
   return (
-    <Card className="col-span-12 md:col-span-4 w-full">
+    <Card className="col-span-12 lg:col-span-4 w-full">
       <CardHeader>
         <CardTitle>Empréstimos por Tipo</CardTitle>
       </CardHeader>
