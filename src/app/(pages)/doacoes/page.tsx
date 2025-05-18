@@ -32,7 +32,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { addDonation, getDonation } from "@/api/donation";
-import { cn } from "@/lib/utils";
+import { cn, formatToBRL } from "@/lib/utils";
 
 const defaultValues: RegisterDonationFormValues = {
   type: "medicine",
@@ -129,22 +129,22 @@ const Donations = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <InfoCard
-          title="Total de Doações"
-          value="R$ 218.809,68"
+          title="Valor total de Doações"
+          value={formatToBRL(
+            donationsList.reduce(
+              (acc, donation) => acc + parseFloat(donation.amount),
+              0
+            )
+          )}
           description="2023"
           icon={<ChartBar size={24} />}
         />
+
         <InfoCard
-          title="Doações do Mês"
-          value="R$ 18.250,00"
-          description="Abril/2025"
-          icon={<ChartBar size={24} />}
-        />
-        <InfoCard
-          title="Doadores Ativos"
-          value="156"
+          title="Total de doações"
+          value={donationsList.length}
           description="Recorrentes"
           icon={<ChartBar size={24} />}
         />

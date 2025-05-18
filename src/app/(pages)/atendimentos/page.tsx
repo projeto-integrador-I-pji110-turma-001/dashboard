@@ -31,6 +31,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { formatDate, formatDateAndTime } from "@/lib/utils";
 
 const appointmentsHeader = [
   { label: "Paciente", key: "patientName" },
@@ -70,16 +71,7 @@ const Appointments = () => {
 
   const translatedAppointments = appointmentsList.map((appointment) => ({
     ...appointment,
-    appointmentDate: new Date(appointment.appointmentDate).toLocaleDateString(
-      "pt-BR",
-      {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }
-    ),
+    appointmentDate: formatDateAndTime(appointment.appointmentDate),
     type:
       appointmentTypeLabels[appointment.type.toLowerCase()] || appointment.type,
     status:
@@ -98,7 +90,6 @@ const Appointments = () => {
     try {
       setIsLoading(true);
       const appointments = await getAppointment();
-      console.log(appointments);
       if (appointments) {
         setAppointmentsList(appointments);
       }
@@ -128,24 +119,37 @@ const Appointments = () => {
       setIsLoading(false);
     }
   }
+
+  const today = new Date();
+  const todayString = today.toISOString().split("T")[0];
+
+  const appointmentsToday = appointmentsList.filter((appointment) => {
+    const appointmentDate = appointment.appointmentDate?.split("T")[0];
+    return appointmentDate === todayString;
+  });
+
   return (
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <InfoCard
           title="Total de Atendimentos"
-          value="2.662"
+          value={appointmentsList.length}
           description="2023"
           icon={<Users size={24} />}
         />
         <InfoCard
           title="Atendimentos Hoje"
-          value="12"
-          description="25/04/2025"
+          value={appointmentsToday.length}
+          description={formatDate(todayString)}
           icon={<Users size={24} />}
         />
         <InfoCard
-          title="Em Espera"
-          value="3"
+          title="Em andamento"
+          value={
+            appointmentsList.filter(
+              (appointment) => appointment.status === "ongoing"
+            ).length
+          }
           description="Fila de Atendimento"
           icon={<Users size={24} />}
         />

@@ -7,7 +7,6 @@ export async function getAppointment(appointmentId?: string) {
     method: "GET",
     url: `/appointment${appointmentId ? `/${appointmentId}` : ""}`,
   });
-console.log(data);
   return data;
 }
 

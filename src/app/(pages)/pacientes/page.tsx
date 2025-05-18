@@ -117,20 +117,20 @@ const Patients = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <InfoCard
           title="Total de Pacientes"
-          value="1.256"
+          value={new Map(patientsList.map((p) => [p.id, p])).size}
           description="Cadastrados"
           icon={<Users size={24} />}
         />
         <InfoCard
           title="Pacientes Ativos"
-          value="890"
+          value={patientsList.filter((p) => p.status === "ongoing").length}
           description="Em tratamento"
           icon={<Users size={24} />}
         />
         <InfoCard
-          title="Novos Pacientes"
-          value="45"
-          description="Este mês"
+          title="Atendimentos finalizados"
+          value={patientsList.filter((p) => p.status === "completed").length}
+          description="Pessoas atendidas"
           icon={<Users size={24} />}
         />
       </div>

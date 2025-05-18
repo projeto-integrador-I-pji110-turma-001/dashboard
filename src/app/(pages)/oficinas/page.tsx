@@ -87,18 +87,18 @@ const Workshops = () => {
     defaultValues,
   });
 
-  const filteredWorkshops = workshopsList.filter(
+  const translatedWorkshops = workshopsList.map((workshop) => ({
+    ...workshop,
+    weekday: weekdayMap[workshop.weekday.toLowerCase()] || workshop.weekday,
+    status: statusMap[workshop.status.toLowerCase()] || workshop.status,
+  }));
+
+  const filteredWorkshops = translatedWorkshops.filter(
     (workshop) =>
       workshop.name.toLowerCase().includes(filter.toLowerCase()) ||
       workshop.weekday.toLowerCase().includes(filter.toLowerCase()) ||
       workshop.status.toLowerCase().includes(filter.toLowerCase())
   );
-
-  const translatedWorkshops = filteredWorkshops.map((workshop) => ({
-    ...workshop,
-    weekday: weekdayMap[workshop.weekday.toLowerCase()] || workshop.weekday,
-    status: statusMap[workshop.status.toLowerCase()] || workshop.status,
-  }));
 
   async function getList() {
     try {
@@ -139,19 +139,22 @@ const Workshops = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <InfoCard
           title="Total de Oficinas"
-          value="8"
+          value={workshopsList.length}
           description="Ativas"
           icon={<Calendar size={24} />}
         />
         <InfoCard
           title="Participantes"
-          value="124"
+          value={workshopsList.reduce(
+            (acc, curr) => acc + curr.participants,
+            0
+          )}
           description="Ativos"
           icon={<Calendar size={24} />}
         />
         <InfoCard
-          title="Oficinas Programadas"
-          value="3"
+          title="Oficinas ativas"
+          value={workshopsList.filter((w) => w.status === "active").length}
           description="Próximo mês"
           icon={<Calendar size={24} />}
         />
@@ -165,8 +168,8 @@ const Workshops = () => {
         <TabsContent value="lista">
           <DashboardTable
             isLoading={isLoading}
-            list={translatedWorkshops}
-            table={{ data: workshopsList, header: workshopsHeader }}
+            list={filteredWorkshops}
+            table={{ data: filteredWorkshops, header: workshopsHeader }}
             message={"Nenhuma oficina cadastrada."}
             searchFilter={filter}
             setSearchFilter={setFilter}
