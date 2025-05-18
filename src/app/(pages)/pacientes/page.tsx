@@ -66,18 +66,18 @@ const Patients = () => {
     defaultValues,
   });
 
-  const filteredPatients = patientsList.filter(
+  const translatedPatientList = patientsList.map((patient) => ({
+    ...patient,
+    type: typeLabels[patient.type] || patient.type,
+    status: statusLabels[patient.status] || patient.status,
+  }));
+
+  const filteredPatients = translatedPatientList.filter(
     (patient) =>
       patient.name.toLowerCase().includes(filter.toLowerCase()) ||
       patient.type.toLowerCase().includes(filter.toLowerCase()) ||
       patient.status.toLowerCase().includes(filter.toLowerCase())
   );
-
-  const list = filteredPatients.map((patient) => ({
-    ...patient,
-    type: typeLabels[patient.type] || patient.type,
-    status: statusLabels[patient.status] || patient.status,
-  }));
 
   async function getPatientsList() {
     try {
@@ -143,8 +143,8 @@ const Patients = () => {
         <TabsContent value="lista">
           <DashboardTable
             isLoading={isLoading}
-            list={list}
-            table={{ data: patientsList, header: patientsHeader }}
+            list={filteredPatients}
+            table={{ data: filteredPatients, header: patientsHeader }}
             message={"Nenhum paciente cadastrado."}
             searchFilter={filter}
             setSearchFilter={setFilter}

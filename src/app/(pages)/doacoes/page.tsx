@@ -73,13 +73,7 @@ const Donations = () => {
     defaultValues,
   });
 
-  const filteredDonations = donationsList.filter(
-    (donation) =>
-      donation.type.toLowerCase().includes(filter.toLowerCase()) ||
-      donation.status.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  const translatedDonations = filteredDonations.map((donation) => ({
+  const translatedDonations = donationsList.map((donation) => ({
     ...donation,
     date: new Date(donation.createdAt).toLocaleDateString("pt-BR", {
       day: "2-digit",
@@ -91,6 +85,12 @@ const Donations = () => {
     status:
       donationStatusLabels[donation.status.toLowerCase()] || donation.status,
   }));
+
+  const filteredDonations = translatedDonations.filter(
+    (donation) =>
+      donation.type.toLowerCase().includes(filter.toLowerCase()) ||
+      donation.status.toLowerCase().includes(filter.toLowerCase())
+  );
 
   async function getList() {
     try {
@@ -158,8 +158,8 @@ const Donations = () => {
         <TabsContent value="lista">
           <DashboardTable
             isLoading={isLoading}
-            list={translatedDonations}
-            table={{ data: donationsList, header: donationsHeader }}
+            list={filteredDonations}
+            table={{ data: filteredDonations, header: donationsHeader }}
             message={"Nenhuma doação cadastrada."}
             searchFilter={filter}
             setSearchFilter={setFilter}
